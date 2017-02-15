@@ -1,41 +1,29 @@
 
 public class Board {
+
     private final int column = 7;
     private final int row = 6;
-    private final String emtyField = ".";
-    private final String xPlayer = "x";
-    private final String oPlayer = "o";
+
+    public Board() {
+
+        for (int j = 0; j < row; j++) {
+            for (int i = 0; i < column; i++) {
+                gameField[i][j] = Token.EMPTY.getToken();
+            }
+        }
+
+    }
 
     private String[][] gameField = new String[column][row];
 
     public String getGameField(int column, int row) {
         return gameField[column][row];
     }
-
     public int getColumn() {
         return column;
     }
-
     public int getRow() {
         return row;
-    }
-
-    public String getxPlayer(){
-        return xPlayer;
-    }
-
-    public String getoPlayer(){
-        return oPlayer;
-    }
-
-    public void emtyBord() {
-        for (int j = 0; j < row; j++) {
-            for (int i = 0; i < column; i++) {
-                gameField[i][j] = emtyField;
-            }
-        }
-
-
     }
 
     public void printField(){
@@ -51,13 +39,10 @@ public class Board {
 
     public int checkHit(int hit) {
         int i = 5;
-        try {
-            while (!gameField[hit][i].equals(emtyField)) {
+
+            while ((i >= 0) && (!gameField[hit][i].equals(Token.EMPTY.getToken()))) {
                 i--;
             }
-        } catch (Exception e) {
-
-        }
 
         return i;
 
@@ -69,19 +54,15 @@ public class Board {
     }
 
     public boolean checkColum(int slot){
-        if (slot == -1 ){
 
-            return false;
-        } else {
-            return true;
-        }
+        return (slot != -1);
     }
 
     public boolean checkBord (){
         boolean chec = false;
         int i = 0;
         while (!chec && i < column){
-            if (gameField[i][0].equals(emtyField)){
+            if (gameField[i][0].equals(Token.EMPTY.getToken())){
                 chec = true;
             }
             i++;

@@ -1,5 +1,5 @@
 
-public class Player {
+public abstract class Player {
     private String playerName;
     private String token;
 
@@ -7,8 +7,8 @@ public class Player {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setToken(Token token) {
+        this.token = token.getToken();
     }
 
     public String getPlayerName() {
@@ -18,4 +18,6 @@ public class Player {
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
+
+    public abstract int getHit();
 }
