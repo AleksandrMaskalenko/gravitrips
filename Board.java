@@ -1,37 +1,37 @@
 
 public class Board {
 
-    private final int column = 7;
-    private final int row = 6;
+    private static final int COLUMNS = 7;
+    private static final int ROWS = 6;
 
     public Board() {
 
-        for (int j = 0; j < row; j++) {
-            for (int i = 0; i < column; i++) {
-                gameField[i][j] = Token.EMPTY.getToken();
+        for (int j = 0; j < ROWS; j++) {
+            for (int i = 0; i < COLUMNS; i++) {
+                gameField[i][j] = Token.EMPTY;
             }
         }
 
     }
 
-    private String[][] gameField = new String[column][row];
+    private Token[][] gameField = new Token[COLUMNS][ROWS];
 
-    public String getGameField(int column, int row) {
+    public Token getGameField(int column, int row) {
         return gameField[column][row];
     }
     public int getColumn() {
-        return column;
+        return COLUMNS;
     }
     public int getRow() {
-        return row;
+        return ROWS;
     }
 
     public void printField(){
         System.out.println(1 +"\t"+ 2 +"\t"+ 3 +"\t"+ 4 +"\t"+ 5 +"\t"+ 6 +"\t"+ 7);
 
-        for (int j = 0; j < row; j++) {
-            for (int i = 0; i < column; i++) {
-                System.out.print(gameField[i][j] + "\t");
+        for (int j = 0; j < ROWS; j++) {
+            for (int i = 0; i < COLUMNS; i++) {
+                System.out.print(gameField[i][j].getToken() + "\t");
             }
             System.out.println();
         }
@@ -40,7 +40,7 @@ public class Board {
     public int checkHit(int hit) {
         int i = 5;
 
-            while ((i >= 0) && (!gameField[hit][i].equals(Token.EMPTY.getToken()))) {
+            while ((i >= 0) && (!gameField[hit][i].equals(Token.EMPTY))) {
                 i--;
             }
 
@@ -48,7 +48,7 @@ public class Board {
 
     }
 
-    public void addHit (int hit, int freeSlot, String token){
+    public void addHit (int hit, int freeSlot, Token token){
 
         gameField[hit][freeSlot] = token;
     }
@@ -61,8 +61,8 @@ public class Board {
     public boolean checkBord (){
         boolean chec = false;
         int i = 0;
-        while (!chec && i < column){
-            if (gameField[i][0].equals(Token.EMPTY.getToken())){
+        while (!chec && i < COLUMNS){
+            if (gameField[i][0].equals(Token.EMPTY)){
                 chec = true;
             }
             i++;

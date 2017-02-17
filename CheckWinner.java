@@ -4,7 +4,7 @@ public class CheckWinner {
 
 
 
-    public boolean checkVertical(Board board, String token) {
+    public boolean checkVertical(Board board, Token token) {
         int count = 0;
         for (int j = 0; j < board.getColumn(); j++) {
             for (int i = 0; i < board.getRow(); i++) {
@@ -23,7 +23,7 @@ public class CheckWinner {
         return false;
     }
 
-    public boolean checkHorizontal(Board board, String token) {
+    public boolean checkHorizontal(Board board, Token token) {
         int count = 0;
         for (int j = 0; j < board.getRow(); j++) {
             for (int i = 0; i < board.getColumn(); i++) {
@@ -42,7 +42,7 @@ public class CheckWinner {
         return false;
     }
 
-    public boolean checkDiagonal(Board board, String token) {
+    public boolean checkDiagonal(Board board, Token token) {
         int count = 0;
         for (int i = 0; i < board.getRow()*2; i++) {
             for (int j = 0; j <= i; j++) {

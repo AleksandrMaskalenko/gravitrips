@@ -8,10 +8,10 @@ public class HumanPlayer extends Player{
         String count;
 
         if (numberOfPlayer == 2) {
-            count = "second";
+            count = "first";
             setToken(Token.O);
         } else {
-            count = "first";
+            count = "second";
             setToken(Token.X);
         }
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +29,7 @@ public class HumanPlayer extends Player{
 
         while (!validMove) {
             try {
-
+                System.out.println("Player " + getPlayerName() + " set token - " + getToken());
                 System.out.println("Enter your number from 1 to 7!");
                 move = Integer.parseInt(reader.readLine());
 

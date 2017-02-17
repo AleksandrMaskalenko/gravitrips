@@ -1,14 +1,14 @@
 
 public abstract class Player {
     private String playerName;
-    private String token;
+    private Token token;
 
-    public String getToken() {
+    public Token getToken() {
         return token;
     }
 
     public void setToken(Token token) {
-        this.token = token.getToken();
+        this.token = token;
     }
 
     public String getPlayerName() {
