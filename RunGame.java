@@ -6,6 +6,7 @@ public class RunGame {
 
         Game game = new Game();
         game.createPlayer();
+        game.runGame();
 
 
     }

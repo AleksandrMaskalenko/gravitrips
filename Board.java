@@ -31,7 +31,7 @@ public class Board {
 
         for (int j = 0; j < ROWS; j++) {
             for (int i = 0; i < COLUMNS; i++) {
-                System.out.print(gameField[i][j].getToken() + "\t");
+                System.out.print(gameField[i][j] + "\t");
             }
             System.out.println();
         }
@@ -40,7 +40,7 @@ public class Board {
     public int checkHit(int hit) {
         int i = 5;
 
-            while ((i >= 0) && (!gameField[hit][i].equals(Token.EMPTY))) {
+            while ((i >= 0) && (gameField[hit][i] != (Token.EMPTY))) {
                 i--;
             }
 
@@ -55,6 +55,10 @@ public class Board {
 
     public boolean checkColum(int slot){
 
+        if (slot == -1) {
+            System.out.println("Column is already full, try another column!");
+        }
+
         return (slot != -1);
     }
 
@@ -66,6 +70,10 @@ public class Board {
                 chec = true;
             }
             i++;
+        }
+
+        if (!chec) {
+            System.out.println("Game over, no more free slots!!");
         }
 
         return chec;

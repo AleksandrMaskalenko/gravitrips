@@ -3,11 +3,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Game {
+    private Board board;
+    private Player player1;
+    private Player player2;
+    private Player currentPlayer;
+
+    public Game() {
+        board = new Board();
+    }
 
     public void createPlayer() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Player player1;
-        Player player2 = null;
 
         System.out.println("Gravitrips game!");
         System.out.println("Select game mode:");
@@ -40,57 +46,54 @@ public class Game {
         printPlayers(player1);
         printPlayers(player2);
 
+        board.printField();
+        currentPlayer = player1;
+
         System.out.println("Let's Start! \n");
 
-        runGame(player1, player2);
     }
 
     public void printPlayers(Player player) {
         System.out.println("Player " + player.getPlayerName() + " set token - " + player.getToken());
     }
 
-    public void runGame(Player player1, Player player2) {
-        Board board = new Board();
-        board.printField();
-        Player currentPlayer = player1;
+    public void runGame() {
 
-        while ((checkGame(board, currentPlayer)) && (chechWinner(board, currentPlayer))) {
+        while (chechWinner() && board.checkBord()) {
 
-            if (currentPlayer == player1) {
-                currentPlayer = player2;
-            } else {
-                currentPlayer = player1;
+            changePlayer();
+
+            int hit = 0;
+            int freeSlot = 0;
+            boolean rightHit = false;
+
+            while (!rightHit) {
+
+                hit = currentPlayer.getHit();
+                freeSlot = board.checkHit(hit);
+                rightHit = board.checkColum(freeSlot);
             }
+
+            board.addHit(hit, freeSlot, currentPlayer.getToken());
+            board.printField();
+
             System.out.println("\n------------------------------");
         }
     }
 
-    public boolean checkGame (Board board, Player player) {
-
-        if (!board.checkBord()) {
-            System.out.println("Game over, no more free slots!!");
-            return false;
-
+    public void changePlayer() {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
         } else {
-            int hit = player.getHit();
-            int freeSlot = board.checkHit(hit);
-
-            while (!board.checkColum(freeSlot)) {
-                System.out.println("Column is already full, try another column!");
-                hit = player.getHit();
-                freeSlot = board.checkHit(hit);
-            }
-            board.addHit(hit, freeSlot, player.getToken());
-            board.printField();
-            return true;
+            currentPlayer = player1;
         }
     }
 
-    public boolean chechWinner(Board board, Player player) {
-        CheckWinner game = new CheckWinner();
-        if (game.checkVertical(board, player.getToken()) || game.checkHorizontal(board, player.getToken()) || game.checkDiagonal(board, player.getToken())) {
+    public boolean chechWinner() {
+        CheckWinner checkWinner = new CheckWinner();
+        if (checkWinner.checkVertical(board, currentPlayer.getToken()) || checkWinner.checkHorizontal(board, currentPlayer.getToken()) || checkWinner.checkDiagonal(board, currentPlayer.getToken())) {
 
-            System.out.println(" \n We have a winner!!! \n Winner is - " + player.getPlayerName());
+            System.out.println(" \n We have a winner!!! \n Winner is - " + currentPlayer.getPlayerName());
             return false;
         }
         return true;

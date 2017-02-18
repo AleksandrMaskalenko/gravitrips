@@ -13,7 +13,8 @@ public enum Token {
 
     }
 
-    public String getToken() {
-        return token;
+    @Override
+    public String toString() {
+        return this.token;
     }
 }
